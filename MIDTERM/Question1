@@ -1,0 +1,19 @@
+def is_palindrome(num):
+    return str(num) == str(num)[::-1]
+
+# Open the file and read lines
+with open("Python\cypy\MIDTERM\numbers.txt", "r") as file:
+    lines = file.readlines()
+
+# Process each line
+for i, line in enumerate(lines, start=1):
+    print(f"Processing Line {i}...")  # Mimicking your input/output style
+    line = line.strip()  # Remove spaces and newlines
+    numbers = list(map(int, line.split(",")))  # Convert to integers
+    total = sum(numbers)  # Get the sum
+    
+    # Check if sum is a palindrome
+    result = "Palindrome" if is_palindrome(total) else "Not a palindrome"
+    
+    # Print the result (Maintains your style)
+    print(f"Line {i}: {line} (sum {total}) - {result}")
