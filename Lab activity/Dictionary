@@ -1,0 +1,8 @@
+amount = input("How much dollar do you have? ")
+currency = input("What currency you want to have?: ")
+print(currency, ':', amount)
+
+
+
+
+
