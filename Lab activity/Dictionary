@@ -1,8 +1,43 @@
-amount = input("How much dollar do you have? ")
-currency = input("What currency you want to have?: ")
-print(currency, ':', amount)
+import csv
+import os
 
+# Define the correct relative path
+file_path = os.path.join("Python", "Lab activity", "currency.csv")
 
+# Load exchange rates from currency.csv
+def load_exchange_rates(filename):
+    exchange_rates = {}
+    try:
+        with open(filename, mode='r', encoding='utf-8') as file:
+            reader = csv.reader(file)
+            next(reader)  # Skip the header
+            for row in reader:
+                currency, rate = row[0], float(row[1])
+                exchange_rates[currency] = rate
+    except FileNotFoundError:
+        print(f"Error: {filename} file not found. Please check the file path.")
+        exit()
+    return exchange_rates
 
+# Convert USD to target currency
+def convert_currency(amount, target_currency, exchange_rates):
+    if target_currency in exchange_rates:
+        return amount * exchange_rates[target_currency]
+    else:
+        print("Error: Currency not found in exchange rates.")
+        exit()
 
+# Main program
+if __name__ == "__main__":
+    exchange_rates = load_exchange_rates(file_path)  # Use the correct path
 
+    # Get user input
+    usd_amount = float(input("How much dollar do you have? "))
+    target_currency = input("What currency you want to have? ").upper()
+
+    # Perform conversion
+    converted_amount = convert_currency(usd_amount, target_currency, exchange_rates)
+
+    # Display results with proper formatting
+    print("\nDollar:", usd_amount, "USD")
+    print("Philippine Peso:", converted_amount)
